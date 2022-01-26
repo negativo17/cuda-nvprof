@@ -17,8 +17,8 @@ ExclusiveArch:  x86_64 ppc64le
 
 Source0:        https://developer.download.nvidia.com/compute/cuda/redist/%{real_name}/linux-x86_64/%{real_name}-linux-x86_64-%{version}-archive.tar.xz
 Source1:        https://developer.download.nvidia.com/compute/cuda/redist/%{real_name}/linux-ppc64le/%{real_name}-linux-ppc64le-%{version}-archive.tar.xz
-Source2:        accinj64.pc
-Source3:        cuinj64.pc
+Source2:        accinj%{__isa_bits}.pc
+Source3:        cuinj%{__isa_bits}.pc
 
 Requires(post): ldconfig
 Conflicts:      %{name}-%{major_package_version} < %{?epoch:%{epoch}:}%{version}-%{release}
@@ -69,7 +69,7 @@ sed -i \
     -e 's|INCLUDE_DIR|%{_includedir}|g' \
     %{buildroot}/%{_libdir}/pkgconfig/*.pc
 
-%ldconfig_scriptlets
+%{?ldconfig_scriptlets}
 
 %files
 %license LICENSE
