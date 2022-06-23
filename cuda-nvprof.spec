@@ -17,8 +17,9 @@ ExclusiveArch:  x86_64 ppc64le
 
 Source0:        https://developer.download.nvidia.com/compute/cuda/redist/%{real_name}/linux-x86_64/%{real_name}-linux-x86_64-%{version}-archive.tar.xz
 Source1:        https://developer.download.nvidia.com/compute/cuda/redist/%{real_name}/linux-ppc64le/%{real_name}-linux-ppc64le-%{version}-archive.tar.xz
-Source2:        accinj%{__isa_bits}.pc
-Source3:        cuinj%{__isa_bits}.pc
+Source2:        https://developer.download.nvidia.com/compute/cuda/redist/%{real_name}/linux-sbsa/%{real_name}-linux-sbsa-%{version}-archive.tar.xz
+Source3:        accinj%{__isa_bits}.pc
+Source4:        cuinj%{__isa_bits}.pc
 
 Requires(post): ldconfig
 Conflicts:      %{name}-%{major_package_version} < %{?epoch:%{epoch}:}%{version}-%{release}
@@ -51,6 +52,10 @@ libraries.
 %setup -q -T -b 1 -n %{real_name}-linux-ppc64le-%{version}-archive
 %endif
 
+%ifarch aarch64
+%setup -q -T -b 2 -n %{real_name}-linux-sbsa-%{version}-archive
+%endif
+
 %install
 mkdir -p %{buildroot}%{_bindir}
 mkdir -p %{buildroot}%{_includedir}
@@ -60,7 +65,7 @@ mkdir -p %{buildroot}%{_libdir}/pkgconfig/
 cp -fr bin/* %{buildroot}%{_bindir}/
 cp -fr include/* %{buildroot}%{_includedir}/
 cp -fr lib/lib* %{buildroot}%{_libdir}/
-cp -fr %{SOURCE2} %{SOURCE3} %{buildroot}/%{_libdir}/pkgconfig/
+cp -fr %{SOURCE3} %{SOURCE4} %{buildroot}/%{_libdir}/pkgconfig/
 
 # Set proper variables
 sed -i \
@@ -84,6 +89,7 @@ sed -i \
 %changelog
 * Thu Jun 23 2022 Simone Caronni <negativo17@gmail.com> - 1:11.7.50-1
 - Update to 11.7.50.
+- Add aarch64 files.
 
 * Thu Mar 31 2022 Simone Caronni <negativo17@gmail.com> - 1:11.6.124-1
 - Update to 11.6.124 (CUDA 11.6.2).
