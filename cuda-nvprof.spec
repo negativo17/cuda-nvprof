@@ -8,7 +8,7 @@
 
 Name:           %(echo %real_name | tr '_' '-')
 Epoch:          1
-Version:        11.7.101
+Version:        11.8.87
 Release:        1%{?dist}
 Summary:        CUDA command line profiling tool
 License:        CUDA Toolkit
@@ -17,7 +17,6 @@ ExclusiveArch:  x86_64 ppc64le
 
 Source0:        https://developer.download.nvidia.com/compute/cuda/redist/%{real_name}/linux-x86_64/%{real_name}-linux-x86_64-%{version}-archive.tar.xz
 Source1:        https://developer.download.nvidia.com/compute/cuda/redist/%{real_name}/linux-ppc64le/%{real_name}-linux-ppc64le-%{version}-archive.tar.xz
-Source2:        https://developer.download.nvidia.com/compute/cuda/redist/%{real_name}/linux-sbsa/%{real_name}-linux-sbsa-%{version}-archive.tar.xz
 Source3:        accinj%{__isa_bits}.pc
 Source4:        cuinj%{__isa_bits}.pc
 
@@ -52,10 +51,6 @@ libraries.
 %setup -q -T -b 1 -n %{real_name}-linux-ppc64le-%{version}-archive
 %endif
 
-%ifarch aarch64
-%setup -q -T -b 2 -n %{real_name}-linux-sbsa-%{version}-archive
-%endif
-
 %install
 mkdir -p %{buildroot}%{_bindir}
 mkdir -p %{buildroot}%{_includedir}
@@ -87,6 +82,9 @@ sed -i \
 %{_libdir}/pkgconfig/*.pc
 
 %changelog
+* Fri Nov 11 2022 Simone Caronni <negativo17@gmail.com> - 1:11.8.87-1
+- Update to 11.8.87.
+
 * Sun Sep 04 2022 Simone Caronni <negativo17@gmail.com> - 1:11.7.101-1
 - Update to 11.7.101.
 
