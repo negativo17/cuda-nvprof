@@ -4,7 +4,7 @@
 %global __strip /bin/true
 %global _missing_build_ids_terminate_build 0
 %global _build_id_links none
-%global major_package_version 11-6
+%global major_package_version 11-8
 
 Name:           %(echo %real_name | tr '_' '-')
 Epoch:          1
@@ -53,12 +53,10 @@ libraries.
 
 %install
 mkdir -p %{buildroot}%{_bindir}
-mkdir -p %{buildroot}%{_includedir}
 mkdir -p %{buildroot}%{_libdir}
 mkdir -p %{buildroot}%{_libdir}/pkgconfig/
 
 cp -fr bin/* %{buildroot}%{_bindir}/
-cp -fr include/* %{buildroot}%{_includedir}/
 cp -fr lib/lib* %{buildroot}%{_libdir}/
 cp -fr %{SOURCE3} %{SOURCE4} %{buildroot}/%{_libdir}/pkgconfig/
 
@@ -77,7 +75,6 @@ sed -i \
 %{_libdir}/*.so.*
 
 %files devel
-%{_includedir}/*
 %{_libdir}/*.so
 %{_libdir}/pkgconfig/*.pc
 
