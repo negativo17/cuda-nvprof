@@ -8,7 +8,7 @@
 
 Name:           %(echo %real_name | tr '_' '-')
 Epoch:          1
-Version:        12.2.142
+Version:        12.3.101
 Release:        1%{?dist}
 Summary:        CUDA command line profiling tool
 License:        CUDA Toolkit
@@ -79,6 +79,9 @@ sed -i \
 %{_libdir}/pkgconfig/*.pc
 
 %changelog
+* Tue Nov 28 2023 Simone Caronni <negativo17@gmail.com> - 1:12.3.101-1
+- Update to 12.3.101.
+
 * Thu Sep 28 2023 Simone Caronni <negativo17@gmail.com> - 1:12.2.142-1
 - Update to 12.2.142.
 
